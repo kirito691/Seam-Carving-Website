@@ -1,0 +1,28 @@
+.v1 {
+	height: 500px;
+	width: 5px;
+	border-top:1px;
+	color:black;
+    background-color:black;
+    position: absolute;
+}
+
+.h1 {
+	height: 5px;
+	width: 800px;
+	color: black;
+	background-color: black;
+	position: absolute;
+}
+
+.div1 {
+	position: relative;
+	background-color: yellow;
+	height: 500px;
+	width: 800px;
+}
+
+#img {
+	height: 300px;
+	width: 300px;
+}

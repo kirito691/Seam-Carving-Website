@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+<style>
+	.v1 {
+	height: 500px;
+	width: 5px;
+	border-top:1px;
+	color:black;
+    background-color:black;
+    position: absolute;
+}
+
+.h1 {
+	height: 5px;
+	width: 800px;
+	color: black;
+	background-color: black;
+	position: absolute;
+}
+
+.div1 {
+	position: relative;
+	background-color: yellow;
+	height: 500px;
+	width: 800px;
+}
+
+#img {
+	height: 300px;
+	width: 300px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+   rel = "stylesheet">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<!-- <script type="text/javascript" src="js_functions.js"></script> -->
+<script>
+	$(function() {
+	$(".div1 > .v1").draggable({
+		containment: ".div1",
+		axis: "x"
+	});
+
+	$(".div1 > .h1").draggable({
+		containment: ".div1",
+		axis: "y"
+	});
+
+	$("#resize-width-button").click(function(){
+		var w = $(".v1").css("left");
+		$.ajax({
+			url : "http://127.0.0.1:5000/change_width/",
+			type : "GET",
+			data : {"width" : w},
+			dataType : "json"
+		}).done(function(data){
+			// $(destElem).html('<img src="{{ url_for('static', filename='output.jpg') }}">');
+			document.getElementById('image1').src='{{ url_for('static', filename='output.jpg') }}'
+		}).fail(function(){
+			console.log("Some error occured!")
+		})
+	});
+
+	$("#resize-height-button").click(function(){
+		var h = $(".h1").css("top");
+		$.ajax({
+			url : "http://127.0.0.1:5000/change_height/",
+			type : "GET",
+			data : {"height" : h},
+			dataType : "json"
+		}).done(function(data){
+			// $(destElem).html('<img src="{{ url_for('static', filename='output.jpg') }}">');
+			document.getElementById('image1').src='{{ url_for('static', filename='output.jpg') }}'
+		}).fail(function(){
+			console.log("Some error occured!")
+		})
+	});
+});
+</script>
+</head>
+
+
+
+<body>
+<section>
+<div class="div1">
+	<img src="{{ url_for('static', filename='scream.jpg') }}" id="image1">
+	<div class="v1" style="left: 700px; top: 0px;"></div>
+	<div class="h1" style="top: 400px"></div>
+</div>
+<br>
+<button id="resize-width-button">Resize Width</button>
+<button id="resize-height-button">Resize Height</button>
+</section>
+
+
+</body>
+</html>
